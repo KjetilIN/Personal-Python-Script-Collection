@@ -13,4 +13,4 @@ def plotCompleteGraph(n):
 
 
 
-plotCompleteGraph(4)
+plotCompleteGraph(20)

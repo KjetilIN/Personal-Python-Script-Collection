@@ -1,5 +1,6 @@
 import random
 import math
+from re import A
 
 """
 WarGames Script.
@@ -11,6 +12,7 @@ After running this script, you should be able to get a file with random units.
 #Version-LOG: 
 
 - 0.0.1: returnes line of unit information 
+- 0.0.2: generate a new army to a file
 
 NB! needs a list of random names as file named "randomName.txt" 
 
@@ -28,16 +30,28 @@ def getRandomHealth():
     return random.randint(1,100)
 
 def getRadomName():
-    nameNumberIndex = random.randint(1,915) #random index in file
+    nameNumberIndex = random.randint(1,900) #random index in file
    
     lines = []
-    with(open("randomName.txt","r")) as file:
+    with(open("dummy-data-genrating/randomName.txt","r")) as file:
         lines = file.readlines()
         
-    return lines[nameNumberIndex]
+    
+    return lines[nameNumberIndex].rstrip()
     
 def getRandomUnit():
-    return units[random.randint(0,len(units)-1)]
+    return str(units[random.randint(0,len(units)-1)])
 
-for x in range(100):
-    print(getRandomUnit()+","+getRadomName()+","+str(getRandomHealth()))
+
+def createNewUnitFile(amount,name,armyname):
+    file = open(name+".csv","w")
+    file.write(armyname+","+"\n")
+
+    for x in range(amount):
+        line = getRandomUnit()+","+getRadomName()+","+str(getRandomHealth())+"\n"
+        file.write(line)
+
+    file.close()
+
+
+createNewUnitFile(200,"pythonUnit","human")
